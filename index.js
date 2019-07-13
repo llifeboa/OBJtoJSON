@@ -35,7 +35,24 @@ fs.readFile(file, 'UTF8', (err, data) => {
         );
 
     console.log('Vertices:\n', mesh.vertices);
-                
+   
+    //find mesh center
+    mesh.center = findCenter(mesh.vertices);
+    console.log('Mesh center:\n', mesh.center);
+    function findCenter(vertices){
+        let x = 0,  y = 0, z = 0,  i = 0;
+        
+        for (let v of vertices)
+        {
+            console.log(v);
+            ++i;
+            x += v[0];
+            y += v[1];
+            z += v[2];
+        }
+        return [x/i, y/i, z/i]
+    }
+
     mesh.triangles = data.match(f_re).map( str => 
         str.split(/\s+/).map( n => 
             Number(n) - 1 //triangle number start 0
@@ -43,6 +60,7 @@ fs.readFile(file, 'UTF8', (err, data) => {
     );
 
     console.log('Triangles\n', mesh.triangles);
+
 
     fs.writeFile(`${file.match(/[^.]+/)[0]}.json`, JSON.stringify(mesh), err =>{
         if (err)
