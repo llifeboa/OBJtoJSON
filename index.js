@@ -14,7 +14,7 @@ fs.readFile(file, 'UTF8', (err, data) => {
     }
 
     let mesh = {};
-    const v_re = /(?<=v\s+)\d+\s+\d+\s+\d+/g;
+    const v_re = /(?<=v\s)(\s*-?\d+.?\d*){3}/g;
     let max_pos = 0;
 
     const f_re = /(?<=f\s+)\d+\s+\d+\s+\d+/g;
@@ -22,7 +22,7 @@ fs.readFile(file, 'UTF8', (err, data) => {
     mesh.vertices = data.match(v_re).map( str => 
         str.split(/\s+/).map( n => {
             Number(n);
-            max_pos = n > max_pos ? n : max_pos;
+            max_pos = Math.abs(n) > max_pos ? Math.abs(n) : max_pos;
             return (n);
         })
     );
@@ -61,7 +61,7 @@ fs.readFile(file, 'UTF8', (err, data) => {
 
     console.log('Vertices - mesh.center:\n', mesh.vertices);
 
-    mesh.triangles = data.match(f_re).map( str => 
+    mesh.triangles = data.replace(/\/\d+/g, '').match(f_re).map( str => 
         str.split(/\s+/).map( n => 
             Number(n) - 1 //triangle number start 0
         )
