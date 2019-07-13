@@ -1,0 +1,22 @@
+{
+  "name": "objtojson",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llifeboa/OBJtoJSON.git"
+  },
+  "author": "llifeboa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/llifeboa/OBJtoJSON/issues"
+  },
+  "homepage": "https://github.com/llifeboa/OBJtoJSON#readme",
+  "devDependencies": {
+    "fs": "0.0.1-security"
+  }
+}
