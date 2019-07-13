@@ -44,7 +44,6 @@ fs.readFile(file, 'UTF8', (err, data) => {
         
         for (let v of vertices)
         {
-            console.log(v);
             ++i;
             x += v[0];
             y += v[1];
@@ -52,6 +51,15 @@ fs.readFile(file, 'UTF8', (err, data) => {
         }
         return [x/i, y/i, z/i]
     }
+
+    mesh.vertices = mesh.vertices.map(arr => {
+        arr[0] -= mesh.center[0];
+        arr[1] -= mesh.center[1];
+        arr[2] -= mesh.center[2];
+        return arr;
+    });
+
+    console.log('Vertices - mesh.center:\n', mesh.vertices);
 
     mesh.triangles = data.match(f_re).map( str => 
         str.split(/\s+/).map( n => 
